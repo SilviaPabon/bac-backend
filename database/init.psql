@@ -1,0 +1,49 @@
+-- Database: bac_database
+
+-- DROP DATABASE IF EXISTS bac_database
+
+CREATE DATABASE bac_database
+    template 'template0'
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'es_CO.UTF-8'
+    LC_CTYPE = 'es_CO.UTF-8'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1
+    IS_TEMPLATE = False;
+
+\c bac_database;
+
+-- DROP TABLE IF EXISTS rol;
+
+CREATE TABLE IF NOT EXISTS rol
+(
+    id SERIAL PRIMARY KEY UNIQUE,
+    tipo VARCHAR ( 1 ) NOT NULL
+);
+
+-- DROP TABLE IF EXISTS admins;
+
+CREATE TABLE IF NOT EXISTS admins
+(
+    cedula VARCHAR ( 12 ) PRIMARY KEY UNIQUE,
+    name VARCHAR ( 150 ) NOT NULL,
+    mail VARCHAR ( 230 ) NOT NULL UNIQUE,
+    password VARCHAR ( 250 ) NOT NULL,
+    idRol SMALLINT NOT NULL,
+    CONSTRAINT fk_admins_rol
+	FOREIGN KEY(idRol)
+	    REFERENCES rol(id)
+);
+
+-- DROP TABLE IF EXISTS residents;
+
+CREATE TABLE IF NOT EXISTS residents
+(
+    cedula VARCHAR ( 12 ) PRIMARY KEY UNIQUE,
+    name VARCHAR ( 150 ) NOT NULL,
+    mail VARCHAR ( 230 ) NOT NULL UNIQUE,
+    idRol SMALLINT NOT NULL,
+    CONSTRAINT fk_residents_rol
+	FOREIGN KEY (idRol)
+	    REFERENCES rol(id)
+);
