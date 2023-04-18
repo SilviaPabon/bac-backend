@@ -9,3 +9,15 @@ export const GetUsers = async () => {
 		return null;
 	}
 };
+
+export const GetUserByEmail = async (email: string) => {
+	try {
+		const query =
+			'SELECT COUNT(*) AS EXISTS FROM USERS WHERE UPPER(USERS.MAIL) = UPPER($1)';
+		const response = await Pool.query(query, [email]);
+		if (response.rows[0]['exists'] === 1) return true;
+		return false;
+	} catch (error) {
+		return null;
+	}
+};

@@ -1,8 +1,9 @@
 import { Router } from 'express';
 const router = Router();
 
-import { handlerGetUsers } from '../controllers/users.controller';
+import { handlerSignUp } from '../controllers/users.controller';
 
-router.get('/example', handlerGetUsers);
+// Admin user
+router.post('/staff/signup', handlerSignUp);
 
 export default router;
