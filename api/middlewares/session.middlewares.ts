@@ -32,5 +32,5 @@ export const mustProvideToken = (
 	req.id = '1';
 	req.role = 'admin';
 
-	next;
+	next();
 };
