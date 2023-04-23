@@ -4,7 +4,10 @@
   "scripts": {
     "build": "npx tsc",
     "build:watch": "npx tsc -w",
-    "dev": "concurrently \"yarn build:watch\" \"node --watch dist/api/index.js\""
+    "dev": "concurrently \"yarn build:watch\" \"node --watch dist/api/index.js\"",
+    "lint": "rome check ./api --apply",
+    "lint:fix": "rome check ./api --apply-unsafe",
+    "format": "rome format ./api --write"
   },
   "dependencies": {
     "@types/bcrypt": "^5.0.0",
