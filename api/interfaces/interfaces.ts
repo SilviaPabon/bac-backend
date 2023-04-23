@@ -5,7 +5,7 @@ export interface AdminSignUpForm {
 	name: string;
 	mail: string;
 	password: string;
-	rol: number;
+	role: number;
 }
 
 export interface Resident {

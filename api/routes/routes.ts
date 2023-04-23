@@ -1,14 +1,14 @@
 import { Router } from 'express';
 const router = Router();
 
-import { handlerLogin } from '../controllers/session.controllers';
+import { handlerLogin } from '../controllers/session.controllers.js';
 import {
 	handlerDeleteResident,
 	handlerRegisterResident,
 	handlerSignUp,
 	handlerUpdateResident,
-} from '../controllers/users.controller';
-import { mustProvideTokenGuard } from '../middlewares/session.middlewares';
+} from '../controllers/users.controller.js';
+import { mustProvideTokenGuard } from '../middlewares/session.middlewares.js';
 //import { mustProvideTokenAdmin } from '../middlewares/session.middlewares';
 
 // Session

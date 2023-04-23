@@ -1,5 +1,5 @@
-import { IRequestWithUser } from '../interfaces/interfaces';
-import { verifyToken } from '../libs/helpers_jwt';
+import { IRequestWithUser } from '../interfaces/interfaces.js';
+import { verifyToken } from '../libs/helpers_jwt.js';
 import { NextFunction, Response } from 'express';
 
 // Checks if is an admin

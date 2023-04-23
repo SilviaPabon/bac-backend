@@ -1,4 +1,4 @@
-import { CONFIG } from '../configs/configs';
+import { CONFIG } from '../configs/configs.js';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 

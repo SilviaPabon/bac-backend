@@ -1,8 +1,8 @@
-import { LoginForm } from '../interfaces/interfaces';
-import { matchPassword } from '../libs/helpers_bcrypt';
-import { generateRefreshToken, generateToken } from '../libs/helpers_jwt';
-import { GetUserByEmail } from '../models/users.model';
-import { validateFields } from '../utils/utils';
+import { LoginForm } from '../interfaces/interfaces.js';
+import { matchPassword } from '../libs/helpers_bcrypt.js';
+import { generateRefreshToken, generateToken } from '../libs/helpers_jwt.js';
+import { GetUserByEmail } from '../models/users.model.js';
+import { validateFields } from '../utils/utils.js';
 import { Request, Response } from 'express';
 
 // handlerLogin manage Login from any user
