@@ -4,6 +4,7 @@
 erDiagram
     ROLES ||--o{ ADMINS: have
     ROLES ||--o{ RESIDENTS: have
+
     ADMINS {
         TEXT IDENTIFICATION_CARD PK "UNIQUE NOT NULL"
         VARCHAR(150) NAME "NOT NULL"
