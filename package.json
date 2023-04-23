@@ -1,7 +1,9 @@
 {
   "name": "bac-backend",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
+    "setup": "yarn build && node dist/database/init.js",
     "build": "npx tsc",
     "build:watch": "npx tsc -w",
     "dev": "concurrently \"yarn build:watch\" \"node --watch dist/api/index.js\"",
