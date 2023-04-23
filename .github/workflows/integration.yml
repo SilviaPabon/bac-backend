@@ -1,0 +1,22 @@
+name: 💚 CI Checks
+
+on: 
+  pull_request:
+    branches:
+      - main
+      - development
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  integration:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+    
+      - name: ⬇️ [SETUP] Rome
+        uses: rome/setup-rome@v0.4
+        with:
+          version: latest
+
+      - name: 🕵🏻‍♀️ [RUN] Rome
+        run: rome ci ./src
