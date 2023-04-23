@@ -53,18 +53,18 @@ export const GetUserByIdentification = async (
 	};
 
 	const { table } = queries[flag];
-
 	try {
-		const query =
-			'SELECT COUNT(*) AS EXISTS FROM $1 WHERE $1.IDENTIFICATION_CARD = $2';
-		const response = await Pool.query(query, [table, identification]);
+		const query = `SELECT COUNT(*) AS EXISTS FROM ${table} WHERE IDENTIFICATION_CARD = $1`;
+		const response = await Pool.query(query, [identification]);
 		if (response.rows[0]['exists'] === '1') {
+			console.log('exists');
 			return true;
 		} else {
 			return false;
 		}
 	} catch (error) {
-		return error;
+		console.log(error);
+		return false;
 	}
 };
 
@@ -101,6 +101,34 @@ export const RegisterResident = async (newUser: Resident) => {
 			newUser.id_role,
 		];
 		const response = await Pool.query(query, values);
+		if (response.rowCount === 0) {
+			return false;
+		}
+		return true;
+	} catch (error) {
+		return null;
+	}
+};
+
+export const DeleteResident = async (idResident: string) => {
+	try {
+		const query = 'DELETE FROM RESIDENTS WHERE IDENTIFICATION_CARD = $1';
+
+		const response = await Pool.query(query, [idResident]);
+		if (response.rowCount === 0) {
+			return false;
+		}
+		return true;
+	} catch (error) {
+		return null;
+	}
+};
+
+export const UpdateResident = async (idResident: string) => {
+	try {
+		const query = 'DELETE FROM RESIDENTS WHERE IDENTIFICATION_CARD = $1';
+
+		const response = await Pool.query(query, [idResident]);
 		if (response.rowCount === 0) {
 			return false;
 		}

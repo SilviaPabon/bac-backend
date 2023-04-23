@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { AdminSignUpForm, Resident } from '../interfaces/interfaces';
 import {
+	DeleteResident,
 	GetUserByEmail,
 	GetUserByIdentification,
 	RegisterAdmin,
@@ -109,3 +110,35 @@ export const handlerRegisterResident = async (req: Request, res: Response) => {
 			.json({ error: true, message: 'Internal server error, creating user' });
 	}
 };
+
+export const handlerDeleteResident = async (req: Request, res: Response) => {
+	try {
+		const userId = req.params.id;
+
+		const user = await GetUserByIdentification(userId, 2);
+		console.log(user);
+		if (!user) {
+			res.status(404).json({ error: true, message: 'User not found' });
+			return;
+		}
+		console.log('object');
+		const isDeleted = await DeleteResident(userId);
+		console.log(isDeleted);
+		if (!isDeleted) {
+			res.status(500).json({
+				error: true,
+				message: 'Internal Server Error, unable to delete user.',
+			});
+			return;
+		}
+		res
+			.status(200)
+			.json({ error: false, message: 'User deleted successfully' });
+	} catch (error) {
+		res
+			.status(500)
+			.json({ error: true, message: 'Internal server error, deleting user' });
+	}
+};
+
+export const handlerUpdateResident = async (req: Request, res: Response) => {};
