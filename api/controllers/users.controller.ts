@@ -17,7 +17,6 @@ import {
 // Handler Internal Staff Signup
 export const handlerSignUp = async (req: Request, res: Response) => {
 	try {
-		// TODO
 		const form: AdminSignUpForm = req.body;
 
 		const [errField, message] = validateFields(form);
@@ -48,7 +47,6 @@ export const handlerSignUp = async (req: Request, res: Response) => {
 		}
 
 		form.password = hash;
-		form.id_role = 1;
 
 		const isUserRegister = await RegisterAdmin(form);
 		if (!isUserRegister) {
@@ -63,9 +61,10 @@ export const handlerSignUp = async (req: Request, res: Response) => {
 			.status(201)
 			.json({ error: false, message: 'User registered successfully' });
 	} catch (error) {
-		res
-			.status(500)
-			.json({ error: true, message: 'Internal server error, creating user' });
+		res.status(500).json({
+			error: true,
+			message: `Internal server error, creating user. ${error}`,
+		});
 	}
 };
 
@@ -112,13 +111,45 @@ export const handlerRegisterResident = async (
 			.status(201)
 			.json({ error: false, message: 'User registered successfully' });
 	} catch (error) {
-		res
-			.status(500)
-			.json({ error: true, message: 'Internal server error, creating user' });
+		res.status(500).json({
+			error: true,
+			message: `Internal server error, creating user. ${error}`,
+		});
 	}
 };
 
 export const handlerDeleteResident = async (req: Request, res: Response) => {
+	try {
+		const userId = req.params.id;
+
+		const user = await GetUserByIdentification(userId, 2);
+
+		if (!user) {
+			res.status(404).json({ error: true, message: 'User not found' });
+			return;
+		}
+
+		const isDeleted = await DeleteResident(userId);
+
+		if (!isDeleted) {
+			res.status(500).json({
+				error: true,
+				message: 'Internal Server Error, unable to delete user.',
+			});
+			return;
+		}
+		res
+			.status(200)
+			.json({ error: false, message: 'User deleted successfully' });
+	} catch (error) {
+		res.status(500).json({
+			error: true,
+			message: `Internal server error, deleting user. ${error}`,
+		});
+	}
+};
+
+export const handlerUpdateResident = async (req: Request, res: Response) => {
 	try {
 		const userId = req.params.id;
 
@@ -142,10 +173,9 @@ export const handlerDeleteResident = async (req: Request, res: Response) => {
 			.status(200)
 			.json({ error: false, message: 'User deleted successfully' });
 	} catch (error) {
-		res
-			.status(500)
-			.json({ error: true, message: 'Internal server error, deleting user' });
+		res.status(500).json({
+			error: true,
+			message: `Internal server error, deleting user. ${error}`,
+		});
 	}
 };
-
-export const handlerUpdateResident = async (req: Request, res: Response) => {};

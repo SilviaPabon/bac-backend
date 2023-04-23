@@ -5,12 +5,7 @@ export interface AdminSignUpForm {
 	name: string;
 	mail: string;
 	password: string;
-	id_role: number;
-}
-
-export interface AdminLoginForm {
-	mail: string;
-	password: string;
+	rol: number;
 }
 
 export interface Resident {
@@ -21,19 +16,12 @@ export interface Resident {
 	id_role: number;
 }
 
-export interface AdminLogin {
+export interface LoginForm {
 	mail: string;
-}
-
-export interface TRequestUser {
-	mail: string;
-}
-
-export interface RequestUser extends Request {
-	user?: TRequestUser;
+	password: string;
 }
 
 export interface IRequestWithUser extends Request {
 	id?: string;
-	role?: string;
+	id_role?: number;
 }

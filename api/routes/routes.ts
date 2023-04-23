@@ -5,18 +5,33 @@ import {
 	handlerSignUp,
 	handlerRegisterResident,
 	handlerDeleteResident,
+	handlerUpdateResident,
 } from '../controllers/users.controller';
 import { handlerLogin } from '../controllers/session.controllers';
-import { mustProvideToken } from '../middlewares/session.middlewares';
+import { mustProvideTokenGuard } from '../middlewares/session.middlewares';
+//import { mustProvideTokenAdmin } from '../middlewares/session.middlewares';
+
+// Session
+router.post('/session/login', handlerLogin);
 
 // Admin user
-router.post('/staff/signup', handlerSignUp);
-router.post('/staff/login', handlerLogin);
+router.post('/admin/register', handlerSignUp);
+
+// Guard user
 router.post(
 	'/staff/register-resident',
-	mustProvideToken,
+	mustProvideTokenGuard,
 	handlerRegisterResident,
 );
-router.delete('/staff/delete/:id', handlerDeleteResident);
+router.put(
+	'/staff/update-resident',
+	mustProvideTokenGuard,
+	handlerUpdateResident,
+);
+router.delete(
+	'/staff/delete-resident/:id',
+	mustProvideTokenGuard,
+	handlerDeleteResident,
+);
 
 export default router;

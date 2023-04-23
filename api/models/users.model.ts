@@ -7,6 +7,7 @@ export const GetUsers = async () => {
 		const response = await Pool.query(query);
 		return response.rows;
 	} catch (error) {
+		console.log(error);
 		return null;
 	}
 };
@@ -15,11 +16,11 @@ export const GetUserByEmail = async (email: string, flag: number) => {
 	const queries: { [key: number]: { table: string; fields: string } } = {
 		1: {
 			table: 'ADMINS',
-			fields: 'MAIL, PASSWORD',
+			fields: 'IDENTIFICATION_CARD, MAIL, ID_ROLE, PASSWORD',
 		},
 		2: {
 			table: 'RESIDENTS',
-			fields: 'MAIL',
+			fields: 'IDENTIFICATION_CARD, MAIL, ID_ROLE',
 		},
 	};
 
@@ -35,6 +36,7 @@ export const GetUserByEmail = async (email: string, flag: number) => {
 			return [false, null];
 		}
 	} catch (error) {
+		console.log(error);
 		return [false, null];
 	}
 };
@@ -82,7 +84,7 @@ export const RegisterAdmin = async (newUser: AdminSignUpForm) => {
 			newUser.name,
 			newUser.mail,
 			newUser.password,
-			newUser.id_role,
+			newUser.rol,
 		];
 		const response = await Pool.query(query, values);
 		if (response.rowCount === 0) {
@@ -90,6 +92,7 @@ export const RegisterAdmin = async (newUser: AdminSignUpForm) => {
 		}
 		return true;
 	} catch (error) {
+		console.log(error);
 		return null;
 	}
 };
@@ -111,6 +114,7 @@ export const RegisterResident = async (newUser: Resident) => {
 		}
 		return true;
 	} catch (error) {
+		console.log(error);
 		return null;
 	}
 };
@@ -125,6 +129,7 @@ export const DeleteResident = async (idResident: string) => {
 		}
 		return true;
 	} catch (error) {
+		console.log(error);
 		return null;
 	}
 };
@@ -139,6 +144,7 @@ export const UpdateResident = async (idResident: string) => {
 		}
 		return true;
 	} catch (error) {
+		console.log(error);
 		return null;
 	}
 };

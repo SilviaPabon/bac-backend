@@ -5,19 +5,19 @@ import { CONFIG } from '../configs/configs';
 dotenv.config();
 
 interface IPayload {
-	mail: string;
+	id: string;
+	id_role: number;
 }
 
 export const generateToken = (payload: IPayload): [boolean | null, string] => {
 	try {
 		const token = jwt.sign(payload, CONFIG.JWT_SECRET, {
 			expiresIn: '10m',
-			subject: payload.mail,
 		});
 
 		return [false, token];
 	} catch (error) {
-		return [true, ''];
+		return [true, `${error}`];
 	}
 };
 
@@ -26,8 +26,9 @@ export const verifyToken = (
 ): [boolean | null, IPayload | null] => {
 	try {
 		const claims = jwt.verify(token, CONFIG.JWT_SECRET);
-		return [false, claims as IPayload];
+		return [true, claims as IPayload];
 	} catch (error) {
-		return [true, null];
+		console.log(error);
+		return [false, null];
 	}
 };
