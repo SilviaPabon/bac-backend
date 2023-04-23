@@ -7,11 +7,16 @@ import {
 	handlerDeleteResident,
 } from '../controllers/users.controller';
 import { handlerLogin } from '../controllers/session.controllers';
+import { mustProvideToken } from '../middlewares/session.middlewares';
 
 // Admin user
 router.post('/staff/signup', handlerSignUp);
 router.post('/staff/login', handlerLogin);
-router.post('/staff/register-resident', handlerRegisterResident);
+router.post(
+	'/staff/register-resident',
+	mustProvideToken,
+	handlerRegisterResident,
+);
 router.delete('/staff/delete/:id', handlerDeleteResident);
 
 export default router;

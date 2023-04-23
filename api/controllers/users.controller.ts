@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
-import { AdminSignUpForm, Resident } from '../interfaces/interfaces';
+import { encryptPassword } from '../libs/helpers_bcrypt';
+import { validateFields } from '../utils/utils';
 import {
 	DeleteResident,
 	GetUserByEmail,
@@ -7,8 +8,11 @@ import {
 	RegisterAdmin,
 	RegisterResident,
 } from '../models/users.model';
-import { encryptPassword } from '../libs/helpers_bcrypt';
-import { validateFields } from '../utils/utils';
+import {
+	AdminSignUpForm,
+	IRequestWithUser,
+	Resident,
+} from '../interfaces/interfaces';
 
 // Handler Internal Staff Signup
 export const handlerSignUp = async (req: Request, res: Response) => {
@@ -66,7 +70,10 @@ export const handlerSignUp = async (req: Request, res: Response) => {
 };
 
 // Handler
-export const handlerRegisterResident = async (req: Request, res: Response) => {
+export const handlerRegisterResident = async (
+	req: IRequestWithUser,
+	res: Response,
+) => {
 	try {
 		const form: Resident = req.body;
 

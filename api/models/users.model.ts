@@ -53,18 +53,23 @@ export const GetUserByIdentification = async (
 	};
 
 	const { table } = queries[flag];
+
 	try {
+		console.log(table, identification);
 		const query = `SELECT COUNT(*) AS EXISTS FROM ${table} WHERE IDENTIFICATION_CARD = $1`;
+
 		const response = await Pool.query(query, [identification]);
+
+		console.log(response);
+
 		if (response.rows[0]['exists'] === '1') {
-			console.log('exists');
 			return true;
 		} else {
 			return false;
 		}
 	} catch (error) {
-		console.log(error);
-		return false;
+		console.log('error', error);
+		return error;
 	}
 };
 

@@ -1,3 +1,5 @@
+import { Request } from 'express';
+
 export interface AdminSignUpForm {
 	identification_card: string;
 	name: string;
@@ -29,4 +31,9 @@ export interface TRequestUser {
 
 export interface RequestUser extends Request {
 	user?: TRequestUser;
+}
+
+export interface IRequestWithUser extends Request {
+	id?: string;
+	role?: string;
 }
