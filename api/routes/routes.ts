@@ -1,13 +1,13 @@
 import { Router } from 'express';
 const router = Router();
 
+import { handlerLogin } from '../controllers/session.controllers';
 import {
-	handlerSignUp,
-	handlerRegisterResident,
 	handlerDeleteResident,
+	handlerRegisterResident,
+	handlerSignUp,
 	handlerUpdateResident,
 } from '../controllers/users.controller';
-import { handlerLogin } from '../controllers/session.controllers';
 import { mustProvideTokenGuard } from '../middlewares/session.middlewares';
 //import { mustProvideTokenAdmin } from '../middlewares/session.middlewares';
 

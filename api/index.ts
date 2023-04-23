@@ -1,6 +1,6 @@
-import express, { Express } from 'express';
 import indexRoutes from './routes/routes';
 import dotenv from 'dotenv';
+import express, { Express } from 'express';
 
 const app: Express = express();
 const PORT: number = 3000;

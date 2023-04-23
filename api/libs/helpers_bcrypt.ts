@@ -19,7 +19,7 @@ export const matchPassword = async (
 	try {
 		const match = await bcrypt.compare(password, savedPassword);
 		return [false, match];
-	} catch (e) {
+	} catch (_e) {
 		return [true, ''];
 	}
 };

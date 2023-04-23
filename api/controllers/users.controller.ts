@@ -1,19 +1,19 @@
-import { Request, Response } from 'express';
-import { encryptPassword } from '../libs/helpers_bcrypt';
-import { validateFields } from '../utils/utils';
-import {
-	DeleteResident,
-	GetUserByEmail,
-	UpdateResident,
-	GetUserByIdentification,
-	RegisterAdmin,
-	RegisterResident,
-} from '../models/users.model';
 import {
 	AdminSignUpForm,
 	IRequestWithUser,
 	Resident,
 } from '../interfaces/interfaces';
+import { encryptPassword } from '../libs/helpers_bcrypt';
+import {
+	DeleteResident,
+	GetUserByEmail,
+	GetUserByIdentification,
+	RegisterAdmin,
+	RegisterResident,
+	UpdateResident,
+} from '../models/users.model';
+import { validateFields } from '../utils/utils';
+import { Request, Response } from 'express';
 
 // Handler Internal Staff Signup
 export const handlerSignUp = async (req: Request, res: Response) => {

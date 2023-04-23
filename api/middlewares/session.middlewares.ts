@@ -1,6 +1,6 @@
-import { NextFunction, Response } from 'express';
 import { IRequestWithUser } from '../interfaces/interfaces';
 import { verifyToken } from '../libs/helpers_jwt';
+import { NextFunction, Response } from 'express';
 
 // Checks if is an admin
 export const mustProvideTokenAdmin = (

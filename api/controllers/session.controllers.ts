@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
 import { LoginForm } from '../interfaces/interfaces';
-import { validateFields } from '../utils/utils';
-import { GetUserByEmail } from '../models/users.model';
 import { matchPassword } from '../libs/helpers_bcrypt';
 import { generateRefreshToken, generateToken } from '../libs/helpers_jwt';
+import { GetUserByEmail } from '../models/users.model';
+import { validateFields } from '../utils/utils';
+import { Request, Response } from 'express';
 
 // handlerLogin manage Login from any user
 export const handlerLogin = async (req: Request, res: Response) => {
