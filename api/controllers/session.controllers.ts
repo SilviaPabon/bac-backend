@@ -1,6 +1,9 @@
 import { LoginForm } from '../interfaces/interfaces.js';
 import { matchPassword } from '../libs/helpers_bcrypt.js';
-import { generateRefreshToken, generateToken } from '../libs/helpers_jwt.js';
+import {
+	generateAccessToken,
+	generateRefreshToken,
+} from '../libs/helpers_jwt.js';
 import { GetUserByEmail } from '../models/users.model.js';
 import { validateFields } from '../utils/utils.js';
 import { Request, Response } from 'express';
@@ -31,10 +34,11 @@ export const handlerLogin = async (req: Request, res: Response) => {
 			return res.status(401).json({ error: true, message: 'Invalid password' });
 		}
 
-		const [err, accessToken] = generateToken({
+		const [err, accessToken] = generateAccessToken({
 			id: user.identification_card,
 			id_role: user.id_role,
 		});
+
 		const [errRe, refreshToken] = generateRefreshToken({
 			id: user.identification_card,
 			id_role: user.id_role,

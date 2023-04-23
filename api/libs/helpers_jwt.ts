@@ -1,15 +1,14 @@
 import { CONFIG } from '../configs/configs.js';
-import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
-
-dotenv.config();
 
 interface IPayload {
 	id: string;
 	id_role: number;
 }
 
-export const generateToken = (payload: IPayload): [boolean | null, string] => {
+export const generateAccessToken = (
+	payload: IPayload,
+): [boolean | null, string] => {
 	try {
 		const token = jwt.sign(payload, CONFIG.JWT_SECRET, {
 			expiresIn: '10m',
@@ -36,11 +35,21 @@ export const generateRefreshToken = (
 	}
 };
 
-export const verifyToken = (
+export const verifyAccessToken = (
 	token: string,
 ): [boolean | null, IPayload | null] => {
 	try {
 		const claims = jwt.verify(token, CONFIG.JWT_SECRET);
+		return [true, claims as IPayload];
+	} catch (error) {
+		console.log(error);
+		return [false, null];
+	}
+};
+
+export const verifyRefreshToken = (token: string) => {
+	try {
+		const claims = jwt.verify(token, CONFIG.JWT_REFRESH_SECRET);
 		return [true, claims as IPayload];
 	} catch (error) {
 		console.log(error);
