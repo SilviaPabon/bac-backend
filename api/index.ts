@@ -1,8 +1,12 @@
 import express, { Express } from 'express';
 import indexRoutes from './routes/routes';
+import dotenv from 'dotenv';
 
 const app: Express = express();
 const PORT: number = 3000;
+
+// Config dotenv
+dotenv.config({ path: './config/.env' });
 
 // Middlewares
 app.use(express.json());

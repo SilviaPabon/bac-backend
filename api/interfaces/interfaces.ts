@@ -6,6 +6,11 @@ export interface AdminSignUpForm {
 	id_role: number;
 }
 
+export interface AdminLoginForm {
+	mail: string;
+	password: string;
+}
+
 interface Resident {
 	identification_card: string;
 	name: string;

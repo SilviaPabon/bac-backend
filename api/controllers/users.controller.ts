@@ -5,7 +5,7 @@ import {
 	GetUserByIdentification,
 	RegisterUser,
 } from '../models/users.model';
-import { encryptPassword } from '../libs/helpers';
+import { encryptPassword } from '../libs/helpers_bcrypt';
 import { validateFields } from '../utils/utils';
 
 // Handler Internal Staff Signup
@@ -19,8 +19,8 @@ export const handlerSignUp = async (req: Request, res: Response) => {
 			return;
 		}
 
-		const exisMail = await GetUserByEmail(form.mail);
-		if (exisMail) {
+		const [existMail, _] = await GetUserByEmail(form.mail);
+		if (existMail) {
 			res.status(409).json({ error: true, message: 'Email already exists' });
 			return;
 		}

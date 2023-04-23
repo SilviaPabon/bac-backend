@@ -1,5 +1,5 @@
 import { Pool } from '../../database/database';
-import { AdminSignUpForm } from '../interfaces/interfaces';
+import { AdminLoginForm, AdminSignUpForm } from '../interfaces/interfaces';
 
 export const GetUsers = async () => {
 	try {
@@ -11,7 +11,7 @@ export const GetUsers = async () => {
 	}
 };
 
-export const GetUserByEmail = async (email: string) => {
+/* export const GetUserByEmail = async (email: string) => {
 	try {
 		const query =
 			'SELECT COUNT(*) AS EXISTS FROM ADMINS WHERE UPPER(ADMINS.MAIL) = UPPER($1)';
@@ -25,7 +25,7 @@ export const GetUserByEmail = async (email: string) => {
 		return error;
 	}
 };
-
+ */
 export const GetUserByIdentification = async (identification: string) => {
 	try {
 		const query =
@@ -58,6 +58,24 @@ export const RegisterUser = async (newUser: AdminSignUpForm) => {
 		}
 		return true;
 	} catch (error) {
-		return true;
+		return null;
+	}
+};
+
+export const GetUserByEmail = async (
+	email: string,
+): Promise<[boolean, AdminLoginForm | null]> => {
+	try {
+		const query =
+			'SELECT MAIL, PASSWORD FROM ADMINS WHERE UPPER(ADMINS.MAIL) = UPPER($1)';
+		const response = await Pool.query(query, [email]);
+		if (response.rowCount === 1) {
+			const user = response.rows[0];
+			return [true, user];
+		} else {
+			return [false, null];
+		}
+	} catch (error) {
+		return [false, null];
 	}
 };
