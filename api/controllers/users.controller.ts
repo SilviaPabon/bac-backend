@@ -4,6 +4,7 @@ import { validateFields } from '../utils/utils';
 import {
 	DeleteResident,
 	GetUserByEmail,
+	UpdateResident,
 	GetUserByIdentification,
 	RegisterAdmin,
 	RegisterResident,
@@ -152,30 +153,31 @@ export const handlerDeleteResident = async (req: Request, res: Response) => {
 export const handlerUpdateResident = async (req: Request, res: Response) => {
 	try {
 		const userId = req.params.id;
+		const residentData = req.body;
 
 		const user = await GetUserByIdentification(userId, 2);
-		console.log(user);
+
 		if (!user) {
 			res.status(404).json({ error: true, message: 'User not found' });
 			return;
 		}
-		console.log('object');
-		const isDeleted = await DeleteResident(userId);
-		console.log(isDeleted);
-		if (!isDeleted) {
+
+		const isUpdated = await UpdateResident(userId, residentData);
+
+		if (!isUpdated) {
 			res.status(500).json({
 				error: true,
-				message: 'Internal Server Error, unable to delete user.',
+				message: 'Internal Server Error, unable to update user.',
 			});
 			return;
 		}
 		res
 			.status(200)
-			.json({ error: false, message: 'User deleted successfully' });
+			.json({ error: false, message: 'User updated successfully' });
 	} catch (error) {
 		res.status(500).json({
 			error: true,
-			message: `Internal server error, deleting user. ${error}`,
+			message: `Internal server error, updating user. ${error}`,
 		});
 	}
 };

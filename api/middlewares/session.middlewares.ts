@@ -60,7 +60,6 @@ export const mustProvideTokenGuard = (
 		return;
 	}
 
-	console.log(token);
 	const [valid, decodedToken] = verifyToken(token);
 	if (!valid) {
 		res

@@ -134,11 +134,20 @@ export const DeleteResident = async (idResident: string) => {
 	}
 };
 
-export const UpdateResident = async (idResident: string) => {
+export const UpdateResident = async (
+	idResident: string,
+	residentData: Resident,
+) => {
 	try {
-		const query = 'DELETE FROM RESIDENTS WHERE IDENTIFICATION_CARD = $1';
+		const query =
+			'UPDATE RESIDENTS SET NAME = $1, MAIL = $2, APARTMENT = $3 WHERE IDENTIFICATION_CARD = $4';
 
-		const response = await Pool.query(query, [idResident]);
+		const response = await Pool.query(query, [
+			residentData.name,
+			residentData.mail,
+			residentData.apartment,
+			idResident,
+		]);
 		if (response.rowCount === 0) {
 			return false;
 		}

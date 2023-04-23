@@ -24,7 +24,7 @@ router.post(
 	handlerRegisterResident,
 );
 router.put(
-	'/staff/update-resident',
+	'/staff/update-resident/:id',
 	mustProvideTokenGuard,
 	handlerUpdateResident,
 );

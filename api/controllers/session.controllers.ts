@@ -3,7 +3,7 @@ import { LoginForm } from '../interfaces/interfaces';
 import { validateFields } from '../utils/utils';
 import { GetUserByEmail } from '../models/users.model';
 import { matchPassword } from '../libs/helpers_bcrypt';
-import { generateToken } from '../libs/helpers_jwt';
+import { generateRefreshToken, generateToken } from '../libs/helpers_jwt';
 
 // handlerLogin manage Login from any user
 export const handlerLogin = async (req: Request, res: Response) => {
@@ -35,14 +35,18 @@ export const handlerLogin = async (req: Request, res: Response) => {
 			id: user.identification_card,
 			id_role: user.id_role,
 		});
+		const [errRe, refreshToken] = generateRefreshToken({
+			id: user.identification_card,
+			id_role: user.id_role,
+		});
 
-		if (err) {
+		if (err || errRe) {
 			return res
 				.status(500)
 				.json({ error: true, message: `Internal Server Error. ${err}` });
 		}
 
-		return res.status(200).json({ error: false, accessToken });
+		return res.status(200).json({ error: false, accessToken, refreshToken });
 	} catch (error) {
 		return res
 			.status(500)
