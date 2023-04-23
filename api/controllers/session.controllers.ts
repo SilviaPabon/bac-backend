@@ -15,7 +15,7 @@ export const handlerLogin = async (req: Request, res: Response) => {
 			return;
 		}
 
-		const [_, user] = await GetUserByEmail(form.mail);
+		const [_, user] = await GetUserByEmail(form.mail, 1);
 		if (!user) {
 			return res.status(401).json({ error: true, message: 'Invalid email' });
 		}

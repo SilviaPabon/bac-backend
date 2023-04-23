@@ -11,10 +11,22 @@ export interface AdminLoginForm {
 	password: string;
 }
 
-interface Resident {
+export interface Resident {
 	identification_card: string;
 	name: string;
 	mail: string;
-	apartment: number | null;
+	apartment: number;
 	id_role: number;
+}
+
+export interface AdminLogin {
+	mail: string;
+}
+
+export interface TRequestUser {
+	mail: string;
+}
+
+export interface RequestUser extends Request {
+	user?: TRequestUser;
 }
