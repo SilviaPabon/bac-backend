@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS RESIDENTS
 
 INSERT INTO ROLES (NAME, DESCRIPTION)
 VALUES 
-    ('Administrador', 'usuario encargado de crear administradores, celadores'),
-    ('Celador', 'usuario encargado de crear, actualizar y eliminar residentes'),
-    ('Residente', 'usuario residente');
+    ('Administrator', 'User who can create, update and delete staff accounts'),
+    ('Watchman', 'User who can only create, update and delete resident accounts'),
+    ('Resident', 'User with no access to the system');
 
