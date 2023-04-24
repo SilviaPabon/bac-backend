@@ -2,6 +2,7 @@ import { Router } from 'express';
 const router = Router();
 
 import {
+	handleGetResidentDetails,
 	handleGetResidents,
 	handleStaffSignup,
 } from '../controllers/admin.controllers.js';
@@ -29,6 +30,7 @@ router.get('/session/refresh', mustProvideRefreshToken, handleRefreshToken);
 
 // Shared routes
 router.get('/residents', mustProvideAccessToken, handleGetResidents);
+router.get('/residents/:id', mustProvideAccessToken, handleGetResidentDetails);
 
 // Admin user
 // router.post('/admin/register', handlerSignUp);

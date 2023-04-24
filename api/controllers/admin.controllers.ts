@@ -1,6 +1,9 @@
 import { encryptPassword } from '../libs/helpers_bcrypt.js';
 import { getResidents } from '../models/admin.models.js';
-import { GetUserByIdentification } from '../models/users.model.js';
+import {
+	GetUserByIdentification,
+	getResidentDetails,
+} from '../models/users.model.js';
 import { RegisterAdmin } from '../models/users.model.js';
 import { Request, Response } from 'express';
 
@@ -87,6 +90,32 @@ export const handleStaffSignup = async (req: Request, res: Response) => {
 		return res
 			.status(201)
 			.json({ error: false, message: 'Admin created successfully.' });
+	} catch (_error) {
+		return res.status(500).json({
+			error: true,
+			message: 'Internal Server Error. Try again later.',
+		});
+	}
+};
+
+export const handleGetResidentDetails = async (req: Request, res: Response) => {
+	try {
+		const { id } = req.params;
+		const resident = await getResidentDetails(id);
+
+		if (!resident) {
+			return res.status(500).json({
+				error: true,
+				message:
+					'Internal server error fetching the resident. Try again later.',
+			});
+		}
+
+		return res.status(200).json({
+			error: false,
+			message: 'Resident fetched successfully.',
+			resident,
+		});
 	} catch (_error) {
 		return res.status(500).json({
 			error: true,

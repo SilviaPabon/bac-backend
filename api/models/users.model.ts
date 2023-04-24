@@ -154,3 +154,18 @@ export const UpdateResident = async (
 		return null;
 	}
 };
+
+export const getResidentDetails = async (idResident: string) => {
+	try {
+		const query =
+			'SELECT IDENTIFICATION_CARD, NAME, MAIL, APARTMENT FROM RESIDENTS WHERE IDENTIFICATION_CARD = $1';
+		const response = await Pool.query(query, [idResident]);
+		if (response.rowCount === 0) {
+			return false;
+		}
+		return response.rows[0];
+	} catch (error) {
+		console.log(error);
+		return null;
+	}
+};
