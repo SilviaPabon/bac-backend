@@ -1,6 +1,7 @@
 import { Router } from 'express';
 const router = Router();
 
+import { handleGetResidents, handleStaffSignup } from '../controllers/admin.controllers.js';
 import { handlerLogin } from '../controllers/session.controllers.js';
 import {
 	handlerDeleteResident,
@@ -8,14 +9,18 @@ import {
 	handlerSignUp,
 	handlerUpdateResident,
 } from '../controllers/users.controller.js';
-import { mustProvideTokenGuard } from '../middlewares/session.middlewares.js';
-//import { mustProvideTokenAdmin } from '../middlewares/session.middlewares';
+import {
+	mustProvideTokenAdmin,
+	mustProvideTokenGuard,
+} from '../middlewares/session.middlewares.js';
 
 // Session
 router.post('/session/login', handlerLogin);
 
 // Admin user
-router.post('/admin/register', handlerSignUp);
+// router.post('/admin/register', handlerSignUp);
+router.post('/admin/register-staff', handleStaffSignup);
+router.get('/admin/residents', mustProvideTokenAdmin, handleGetResidents);
 
 // Guard user
 router.post(

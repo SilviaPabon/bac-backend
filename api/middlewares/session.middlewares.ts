@@ -1,5 +1,5 @@
 import { IRequestWithUser } from '../interfaces/interfaces.js';
-import { verifyToken } from '../libs/helpers_jwt.js';
+import { verifyAccessToken } from '../libs/helpers_jwt.js';
 import { NextFunction, Response } from 'express';
 
 // Checks if is an admin
@@ -20,7 +20,7 @@ export const mustProvideTokenAdmin = (
 		return;
 	}
 
-	const [valid, decodedToken] = verifyToken(token);
+	const [valid, decodedToken] = verifyAccessToken(token);
 
 	if (!valid) {
 		res
@@ -60,7 +60,7 @@ export const mustProvideTokenGuard = (
 		return;
 	}
 
-	const [valid, decodedToken] = verifyToken(token);
+	const [valid, decodedToken] = verifyAccessToken(token);
 	if (!valid) {
 		res
 			.status(401)
