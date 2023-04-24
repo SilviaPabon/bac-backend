@@ -1,21 +1,40 @@
 import { Router } from 'express';
 const router = Router();
 
-import { handlerLogin } from '../controllers/session.controllers.js';
+import {
+	handleGetResidentDetails,
+	handleGetResidents,
+	handleStaffSignup,
+} from '../controllers/admin.controllers.js';
+import {
+	handleRefreshToken,
+	handleWhoami,
+	handlerLogin,
+} from '../controllers/session.controllers.js';
 import {
 	handlerDeleteResident,
 	handlerRegisterResident,
-	handlerSignUp,
 	handlerUpdateResident,
 } from '../controllers/users.controller.js';
-import { mustProvideTokenGuard } from '../middlewares/session.middlewares.js';
-//import { mustProvideTokenAdmin } from '../middlewares/session.middlewares';
+import {
+	mustProvideAccessToken,
+	mustProvideRefreshToken,
+	mustProvideTokenAdmin,
+	mustProvideTokenGuard,
+} from '../middlewares/session.middlewares.js';
 
 // Session
 router.post('/session/login', handlerLogin);
+router.get('/session/whoami', mustProvideAccessToken, handleWhoami);
+router.get('/session/refresh', mustProvideRefreshToken, handleRefreshToken);
+
+// Shared routes
+router.get('/residents', mustProvideAccessToken, handleGetResidents);
+router.get('/residents/:id', mustProvideAccessToken, handleGetResidentDetails);
 
 // Admin user
-router.post('/admin/register', handlerSignUp);
+// router.post('/admin/register', handlerSignUp);
+router.post('/admin/register-staff', mustProvideTokenAdmin, handleStaffSignup);
 
 // Guard user
 router.post(
