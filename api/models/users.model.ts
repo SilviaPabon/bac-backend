@@ -16,11 +16,11 @@ export const GetUserByEmail = async (email: string, flag: number) => {
 	const queries: { [key: number]: { table: string; fields: string } } = {
 		1: {
 			table: 'ADMINS',
-			fields: 'IDENTIFICATION_CARD, MAIL, ID_ROLE, PASSWORD',
+			fields: 'IDENTIFICATION_CARD, MAIL, ID_ROLE, PASSWORD, NAME',
 		},
 		2: {
 			table: 'RESIDENTS',
-			fields: 'IDENTIFICATION_CARD, MAIL, ID_ROLE',
+			fields: 'IDENTIFICATION_CARD, MAIL, ID_ROLE, NAME',
 		},
 	};
 

@@ -53,7 +53,17 @@ export const handlerLogin = async (req: Request, res: Response) => {
 				.json({ error: true, message: `Internal Server Error. ${err}` });
 		}
 
-		return res.status(200).json({ error: false, accessToken, refreshToken });
+		return res.status(200).json({
+			error: false,
+			accessToken,
+			refreshToken,
+			'user': {
+				'identification_card': user.identification_card,
+				'name': user.name,
+				'mail': user.mail,
+				'id_role': user.id_role,
+			},
+		});
 	} catch (error) {
 		return res
 			.status(500)
