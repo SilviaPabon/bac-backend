@@ -1,7 +1,7 @@
 import indexRoutes from './routes/routes.js';
+import cors from 'cors';
 import dotenv from 'dotenv';
 import express, { Express } from 'express';
-import cors from 'cors';
 
 const app: Express = express();
 const PORT: number = 3000;
