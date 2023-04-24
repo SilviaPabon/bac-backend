@@ -27,10 +27,12 @@ router.post('/session/login', handlerLogin);
 router.get('/session/whoami', mustProvideAccessToken, handleWhoami);
 router.get('/session/refresh', mustProvideRefreshToken, handleRefreshToken);
 
+// Shared routes
+router.get('/residents', mustProvideAccessToken, handleGetResidents);
+
 // Admin user
 // router.post('/admin/register', handlerSignUp);
-router.post('/admin/register-staff', handleStaffSignup);
-router.get('/admin/residents', mustProvideTokenAdmin, handleGetResidents);
+router.post('/admin/register-staff', mustProvideTokenAdmin, handleStaffSignup);
 
 // Guard user
 router.post(
