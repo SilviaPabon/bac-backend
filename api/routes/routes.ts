@@ -6,7 +6,6 @@ import { handlerLogin } from '../controllers/session.controllers.js';
 import {
 	handlerDeleteResident,
 	handlerRegisterResident,
-	handlerSignUp,
 	handlerUpdateResident,
 } from '../controllers/users.controller.js';
 import {

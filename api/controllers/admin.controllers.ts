@@ -4,8 +4,18 @@ import { GetUserByIdentification } from '../models/users.model.js';
 import { RegisterAdmin } from '../models/users.model.js';
 import { encryptPassword } from '../libs/helpers_bcrypt.js';
 
-export const handleGetResidents = async (_req: Request, _res: Response) => {
-	await getResidents();
+export const handleGetResidents = async (_req: Request, res: Response) => {
+	try {
+    const [error, residents] = await getResidents();
+
+    if(error){
+      return res.status(500).json({ error: true, message: "Internal server error fetching the residents. Try again later." });
+    }
+
+    return res.status(200).json({ error: false, message: "Residents fetched successfully.", residents});
+  } catch (error) {
+    return res.status(500).json({ error: true, message: "Internal Server Error. Try again later." });
+  }
 };
 
 export const handleStaffSignup = async (req: Request, res: Response) => {
