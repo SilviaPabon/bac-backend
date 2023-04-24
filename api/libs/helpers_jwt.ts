@@ -25,7 +25,6 @@ export const generateRefreshToken = (
 ): [boolean | null, string] => {
 	try {
 		const token = jwt.sign(payload, CONFIG.JWT_REFRESH_SECRET, {
-			notBefore: Math.floor(Date.now() / 1000),
 			expiresIn: '24h',
 		});
 
@@ -37,7 +36,7 @@ export const generateRefreshToken = (
 
 export const verifyAccessToken = (
 	token: string,
-): [boolean | null, IPayload | null] => {
+): [boolean, IPayload | null] => {
 	try {
 		const claims = jwt.verify(token, CONFIG.JWT_SECRET);
 		return [true, claims as IPayload];
@@ -47,7 +46,9 @@ export const verifyAccessToken = (
 	}
 };
 
-export const verifyRefreshToken = (token: string) => {
+export const verifyRefreshToken = (
+	token: string,
+): [boolean, IPayload | null] => {
 	try {
 		const claims = jwt.verify(token, CONFIG.JWT_REFRESH_SECRET);
 		return [true, claims as IPayload];

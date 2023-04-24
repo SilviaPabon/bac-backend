@@ -5,7 +5,11 @@ import {
 	handleGetResidents,
 	handleStaffSignup,
 } from '../controllers/admin.controllers.js';
-import { handlerLogin } from '../controllers/session.controllers.js';
+import {
+	handleRefreshToken,
+	handleWhoami,
+	handlerLogin,
+} from '../controllers/session.controllers.js';
 import {
 	handlerDeleteResident,
 	handlerRegisterResident,
@@ -14,10 +18,14 @@ import {
 import {
 	mustProvideTokenAdmin,
 	mustProvideTokenGuard,
+	mustProvideAccessToken,
+	mustProvideRefreshToken,
 } from '../middlewares/session.middlewares.js';
 
 // Session
 router.post('/session/login', handlerLogin);
+router.get('/session/whoami', mustProvideAccessToken, handleWhoami);
+router.get('/session/refresh', mustProvideRefreshToken, handleRefreshToken);
 
 // Admin user
 // router.post('/admin/register', handlerSignUp);

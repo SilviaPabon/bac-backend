@@ -25,3 +25,10 @@ export interface IRequestWithUser extends Request {
 	id?: string;
 	id_role?: number;
 }
+
+export type TStaff = {
+	identification_card: string;
+	name: string;
+	mail: string;
+	id_role: number;
+};

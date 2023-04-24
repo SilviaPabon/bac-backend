@@ -58,20 +58,17 @@ export const GetUserByIdentification = async (
 
 	try {
 		console.log(table, identification);
-		const query = `SELECT COUNT(*) AS EXISTS FROM ${table} WHERE IDENTIFICATION_CARD = $1`;
-
+		const query = `SELECT IDENTIFICATION_CARD, NAME, MAIL, ID_ROLE FROM ${table} WHERE IDENTIFICATION_CARD = $1`;
 		const response = await Pool.query(query, [identification]);
 
-		console.log(response);
-
-		if (response.rows[0]['exists'] === '1') {
-			return true;
+		if (response.rows.length === 1) {
+			return response.rows[0];
 		} else {
-			return false;
+			return null;
 		}
 	} catch (error) {
 		console.log('error', error);
-		return error;
+		return null;
 	}
 };
 
