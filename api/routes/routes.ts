@@ -16,10 +16,10 @@ import {
 	handlerUpdateResident,
 } from '../controllers/users.controller.js';
 import {
-	mustProvideTokenAdmin,
-	mustProvideTokenGuard,
 	mustProvideAccessToken,
 	mustProvideRefreshToken,
+	mustProvideTokenAdmin,
+	mustProvideTokenGuard,
 } from '../middlewares/session.middlewares.js';
 
 // Session
