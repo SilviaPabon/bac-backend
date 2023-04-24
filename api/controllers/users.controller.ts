@@ -2,8 +2,8 @@ import {
 	AdminSignUpForm,
 	IRequestWithUser,
 	Resident,
-} from '../interfaces/interfaces';
-import { encryptPassword } from '../libs/helpers_bcrypt';
+} from '../interfaces/interfaces.js';
+import { encryptPassword } from '../libs/helpers_bcrypt.js';
 import {
 	DeleteResident,
 	GetUserByEmail,
@@ -11,8 +11,8 @@ import {
 	RegisterAdmin,
 	RegisterResident,
 	UpdateResident,
-} from '../models/users.model';
-import { validateFields } from '../utils/utils';
+} from '../models/users.model.js';
+import { validateFields } from '../utils/utils.js';
 import { Request, Response } from 'express';
 
 // Handler Internal Staff Signup

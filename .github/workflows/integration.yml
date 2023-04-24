@@ -19,4 +19,4 @@ jobs:
           version: latest
 
       - name: 🕵🏻‍♀️ [RUN] Rome
-        run: rome ci ./src
+        run: rome ci ./api

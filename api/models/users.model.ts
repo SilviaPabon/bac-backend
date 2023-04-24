@@ -1,5 +1,5 @@
-import { Pool } from '../../database/database';
-import { AdminSignUpForm, Resident } from '../interfaces/interfaces';
+import { Pool } from '../../database/database.js';
+import { AdminSignUpForm, Resident } from '../interfaces/interfaces.js';
 
 export const GetUsers = async () => {
 	try {
@@ -84,7 +84,7 @@ export const RegisterAdmin = async (newUser: AdminSignUpForm) => {
 			newUser.name,
 			newUser.mail,
 			newUser.password,
-			newUser.rol,
+			newUser.role,
 		];
 		const response = await Pool.query(query, values);
 		if (response.rowCount === 0) {

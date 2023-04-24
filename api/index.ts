@@ -1,4 +1,4 @@
-import indexRoutes from './routes/routes';
+import indexRoutes from './routes/routes.js';
 import dotenv from 'dotenv';
 import express, { Express } from 'express';
 
