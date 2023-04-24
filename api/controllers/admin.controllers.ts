@@ -9,29 +9,23 @@ export const handleGetResidents = async (_req: Request, res: Response) => {
 		const [error, residents] = await getResidents();
 
 		if (error) {
-			return res
-				.status(500)
-				.json({
-					error: true,
-					message:
-						'Internal server error fetching the residents. Try again later.',
-				});
+			return res.status(500).json({
+				error: true,
+				message:
+					'Internal server error fetching the residents. Try again later.',
+			});
 		}
 
-		return res
-			.status(200)
-			.json({
-				error: false,
-				message: 'Residents fetched successfully.',
-				residents,
-			});
+		return res.status(200).json({
+			error: false,
+			message: 'Residents fetched successfully.',
+			residents,
+		});
 	} catch (_error) {
-		return res
-			.status(500)
-			.json({
-				error: true,
-				message: 'Internal Server Error. Try again later.',
-			});
+		return res.status(500).json({
+			error: true,
+			message: 'Internal Server Error. Try again later.',
+		});
 	}
 };
 
@@ -50,34 +44,28 @@ export const handleStaffSignup = async (req: Request, res: Response) => {
 			role,
 		);
 		if (identificationExists) {
-			return res
-				.status(400)
-				.json({
-					error: true,
-					message: 'There is another user with the given identification card',
-				});
+			return res.status(400).json({
+				error: true,
+				message: 'There is another user with the given identification card',
+			});
 		}
 
 		// Check if the mail already exists
 		const mailExists = await GetUserByIdentification(mail, role);
 		if (mailExists) {
-			return res
-				.status(400)
-				.json({
-					error: true,
-					message: 'There is another user with the given mail',
-				});
+			return res.status(400).json({
+				error: true,
+				message: 'There is another user with the given mail',
+			});
 		}
 
 		// Hash the password
 		const [err, hash] = await encryptPassword(password);
 		if (err) {
-			return res
-				.status(500)
-				.json({
-					error: true,
-					message: 'Internal Server Error. Try again later.',
-				});
+			return res.status(500).json({
+				error: true,
+				message: 'Internal Server Error. Try again later.',
+			});
 		}
 
 		// Create the user
@@ -90,12 +78,10 @@ export const handleStaffSignup = async (req: Request, res: Response) => {
 		});
 
 		if (!wasAdminCreated) {
-			return res
-				.status(500)
-				.json({
-					error: true,
-					message: 'Internal Server Error. Try again later.',
-				});
+			return res.status(500).json({
+				error: true,
+				message: 'Internal Server Error. Try again later.',
+			});
 		}
 
 		return res

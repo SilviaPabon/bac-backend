@@ -1,7 +1,10 @@
 import { Router } from 'express';
 const router = Router();
 
-import { handleGetResidents, handleStaffSignup } from '../controllers/admin.controllers.js';
+import {
+	handleGetResidents,
+	handleStaffSignup,
+} from '../controllers/admin.controllers.js';
 import { handlerLogin } from '../controllers/session.controllers.js';
 import {
 	handlerDeleteResident,
